@@ -5,11 +5,12 @@
 #include "Feild.h"
 
 
-char Players[2]{ 'O','X' };
+
 
 
 int main()
 {
+    char Players[2]{ 'O','X' };
     char* ifield[Fsize]{};
     char field[size][size]{};
     int n = 0;
