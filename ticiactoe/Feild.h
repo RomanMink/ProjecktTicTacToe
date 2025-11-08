@@ -1,7 +1,9 @@
 //#pragma once
 #ifndef one
 #define one
-
+int corners[4] = { 0,2,6,8 };
+const int size = 3;
+const int Fsize = 9;
 
 void printFeild(char field[][3])
 {
@@ -25,7 +27,9 @@ bool fillbox(char s, int p, char* field[])
 {
     if (Fsize > p and p >= 0) {
         if (*field[p] == ' ') { *field[p] = s; return 1; }
+        else { std::cout << "the place is taken "; }
     }
+    else { std::cout << "invalid value"; }
     return 0;
 }
 
@@ -57,7 +61,7 @@ bool iswin(char* b[], char l)
     }
 }
 
-bool turn(char symbol, char* field[], char mode, char isP, char dif, char trueP)
+bool turn(char symbol, char* field[], char mode, char isP, char dif,const char trueP)
 {
     if (mode == 'p')
     {
@@ -71,7 +75,7 @@ bool turn(char symbol, char* field[], char mode, char isP, char dif, char trueP)
         }
         else
         {
-            // hard складнисть блокує угрока якщо 2 вже соять
+            // hard складнисть блокує iгрока якщо 2 вже соять
             if (dif == 'h')
             {
                 for (int i = 0; i < Fsize; ++i)
@@ -109,14 +113,15 @@ bool turn(char symbol, char* field[], char mode, char isP, char dif, char trueP)
             //рандом ход
             while (true) {
                 int place = rand() % Fsize;
+                if (*field[place] != ' ') { continue; }
                 if (fillbox(symbol, place, field)) { return 0; }
             }
         }
     }
 }
-void endgame(int isP, char ox[], char symbol, char mode)
+void endgame(const char trueP, char symbol, char mode)
 {
-    if (ox[isP] == symbol)
+    if (trueP == symbol)
     {
         std::cout << "You win!";
         if (mode != 'p') { std::cout << "AI is defeated"; }
